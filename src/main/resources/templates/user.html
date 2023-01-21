@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User info</title>
+</head>
+<body>
+<p th:text="'current session ID: ' + ${#session.getId()}">session ID</p>
+<p th:text="'id: ' + ${principal.getId()}">id</p>
+<p th:text="${principal.getName()}">username</p>
+<p th:text="${'birth year: ' + principal.getYearOfBirth()}">year of birth</p>
+</body>
+</html>
