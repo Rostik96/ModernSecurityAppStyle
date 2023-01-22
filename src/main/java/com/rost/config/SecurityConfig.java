@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -22,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder builder) throws Exception {
-        builder.userDetailsService(personDetailsService);
+        builder.userDetailsService(personDetailsService).passwordEncoder(getPasswordEncoder());
     }
 
 
@@ -36,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 //Настраиваем авторизацию
                 .authorizeRequests()
-                .antMatchers("/auth/login", "/error").permitAll() //Неавторизованным пользователям можно только сюда.
+                .antMatchers("/auth/login", "/error", "/auth/registration").permitAll() //Неавторизованным пользователям можно только сюда.
                 .anyRequest().authenticated()
 
                 //Настраиваем страничку входа.
@@ -45,11 +46,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/auth/login")
                 .loginProcessingUrl("/process_login") //Куда отправятся данные с формы?
                 .defaultSuccessUrl("/hello", true)
-                .failureUrl("/auth/login?error");
+                .failureUrl("/auth/login?error")
+                .and()
+                .logout().logoutUrl("/logout") //URL, при переходе на который происходит разлогинивание (стираются cookies, удаляется сессия by Spring).
+                .logoutSuccessUrl("/auth/login");
     }
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        //return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 }
