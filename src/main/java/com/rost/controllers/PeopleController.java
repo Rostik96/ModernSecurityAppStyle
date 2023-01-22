@@ -7,9 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rost.security.PersonDetails;
+import com.rost.services.AdminService;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Controller
 public class PeopleController {
+    private final AdminService adminService;
+
     @GetMapping("/hello")
     public String sayHello() {
         return "hello";
@@ -27,6 +32,7 @@ public class PeopleController {
 
     @GetMapping("/admin")
     public ModelAndView adminPage() {
+        adminService.doAdminStuff();
         return new ModelAndView("admin", "adminStuff", "adminStuffOnView");
     }
 }
