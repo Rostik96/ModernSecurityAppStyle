@@ -2,6 +2,7 @@ package com.rost.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -15,6 +16,7 @@ import static com.rost.enums.Role.*;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final PersonDetailsService personDetailsService;
 
@@ -37,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 //Настраиваем авторизацию
                 .authorizeRequests()
-                .antMatchers("/admin").hasRole(ROLE_ADMIN.shortName())
+                //.antMatchers("/admin").hasRole(ROLE_ADMIN.shortName())
                 .antMatchers("/auth/login", "/error", "/auth/registration").permitAll() //Неавторизованным пользователям можно только сюда.
                 .anyRequest().hasAnyRole(ROLE_USER.shortName(), ROLE_ADMIN.shortName())
 
