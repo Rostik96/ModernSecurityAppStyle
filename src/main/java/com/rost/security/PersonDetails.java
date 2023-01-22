@@ -1,8 +1,10 @@
 package com.rost.security;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.rost.models.Person;
@@ -15,7 +17,7 @@ public class PersonDetails implements UserDetails {
     private final Person principal;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return List.of(new SimpleGrantedAuthority(principal.getRole().name()));
     }
 
     @Override
