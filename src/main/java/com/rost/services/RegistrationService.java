@@ -8,6 +8,8 @@ import com.rost.models.Person;
 import com.rost.repositories.PeopleRepository;
 import lombok.RequiredArgsConstructor;
 
+import static com.rost.enums.Role.ROLE_USER;
+
 @RequiredArgsConstructor
 @Service
 public class RegistrationService {
@@ -16,9 +18,8 @@ public class RegistrationService {
 
     @Transactional //поскольку происходит изменение в БД
     public void register(Person person) {
-        person.setPassword(
-                passwordEncoder.encode(person.getPassword())
-        );
+        person.setPassword(passwordEncoder.encode(person.getPassword()));
+        person.setRole(ROLE_USER);
         peopleRepository.save(person);
     }
 }
