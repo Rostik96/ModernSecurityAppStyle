@@ -8,8 +8,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.rost.enums.Role;
 import com.rost.services.PersonDetailsService;
 import lombok.RequiredArgsConstructor;
+
+import static com.rost.enums.Role.*;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -35,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 //Настраиваем авторизацию
                 .authorizeRequests()
+                .antMatchers("/admin").hasRole(ROLE_ADMIN.getShortName())
                 .antMatchers("/auth/login", "/error", "/auth/registration").permitAll() //Неавторизованным пользователям можно только сюда.
                 .anyRequest().authenticated()
 
