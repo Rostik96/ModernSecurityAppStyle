@@ -17,7 +17,7 @@ public class PersonDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return new PersonDetails(
-                peopleRepository.findByName(username)
+                peopleRepository.findByUsername(username)
                         .orElseThrow(() -> new UsernameNotFoundException("User not fond"))
         );
     }

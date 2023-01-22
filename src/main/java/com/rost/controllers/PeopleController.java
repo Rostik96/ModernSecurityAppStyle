@@ -22,6 +22,6 @@ public class PeopleController {
          */
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        return new ModelAndView("user", "principal", personDetails.getPrincipal());
+        return new ModelAndView("user", "person", personDetails.getPrincipal());
     }
 }

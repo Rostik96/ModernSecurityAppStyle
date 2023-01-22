@@ -9,5 +9,5 @@ import com.rost.models.Person;
 
 @Repository
 public interface PeopleRepository extends JpaRepository<Person, Long> {
-    Optional<Person> findByName(String name);
+    Optional<Person> findByUsername(String username);
 }

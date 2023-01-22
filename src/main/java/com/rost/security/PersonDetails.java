@@ -25,7 +25,7 @@ public class PersonDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return principal.getName();
+        return principal.getUsername();
     }
 
     @Override

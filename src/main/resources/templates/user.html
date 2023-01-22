@@ -6,8 +6,8 @@
 </head>
 <body>
 <p th:text="'current session ID: ' + ${#session.getId()}">session ID</p>
-<p th:text="'id: ' + ${principal.getId()}">id</p>
-<p th:text="${principal.getName()}">username</p>
-<p th:text="${'birth year: ' + principal.getYearOfBirth()}">year of birth</p>
+<p th:text="'id: ' + ${person.getId()}">id</p>
+<p th:text="${person.getUsername()}">username</p>
+<p th:text="${'birth year: ' + person.getYearOfBirth()}">year of birth</p>
 </body>
 </html>
