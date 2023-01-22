@@ -24,4 +24,9 @@ public class PeopleController {
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
         return new ModelAndView("user", "person", personDetails.getPrincipal());
     }
+
+    @GetMapping("/admin")
+    public ModelAndView adminPage() {
+        return new ModelAndView("admin", "adminStuff", "adminStuffOnView");
+    }
 }
